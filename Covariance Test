@@ -1,0 +1,14 @@
+import pandas as pd
+import yfinance as yf
+
+from YFinance import tickers_obj
+
+data = download = yf.download(["VKTX", "QQQ"], start="2020-01-01", end="2025-12-01")
+prices = data["Close"]
+returns = prices.pct_change().dropna()
+cov_matrix = returns.cov()
+cov_ab = cov_matrix.loc["VKTX", "QQQ"]
+corr_matrix = returns.corr()
+corr_ab = corr_matrix.loc["VKTX", "QQQ"]
+print("The covariance is:", round(cov_ab, 5))
+print("The correlation is:", round(corr_ab, 5))
